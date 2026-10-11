@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b4771">
+  <title>Student ID Card Creator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-copy">
+      <p class="eyebrow">CARD STUDIO / 01</p>
+      <h1>Student ID Card Creator</h1>
+      <p>Build, preview and print both sides of a student identity card.</p>
+    </div>
+  </header>
+  <main class="workspace">
+    <section class="panel form-panel" aria-labelledby="details-title">
+      <div class="section-heading"><div><p class="eyebrow">CARD INFORMATION</p><h2 id="details-title">Card details</h2></div></div>
+      <form id="cardForm">
+        <fieldset class="field-group">
+          <legend>College</legend>
+          <div class="fields">
+            <div class="field full"><label for="college">College name</label><input id="college" value="KKC PG COLLEGE" autocomplete="organization"></div>
+            <div class="field full"><label for="affiliation">Affiliation / university</label><input id="affiliation" value="Affiliated to MGS University Bikaner"></div>
+            <div class="field full"><label for="collegeAddress">College address</label><input id="collegeAddress" value="Churu Road, Sardarshahar Dist. (Churu)"></div>
+            <div class="field"><label for="collegePhones">College contact numbers</label><input id="collegePhones" placeholder="College phone numbers"></div>
+            <div class="field"><label for="website">College website</label><input id="website" placeholder="www.examplecollege.com" inputmode="url"></div>
+            <div class="field full"><label for="logoInput">College logo</label><input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></div>
+          </div>
+        </fieldset>
+        <fieldset class="field-group">
+          <legend>Student</legend>
+          <div class="fields">
+            <div class="field"><label for="studentName">Student name</label><input id="studentName" placeholder="Student full name" autocomplete="name"></div>
+            <div class="field"><label for="father">Father's name</label><input id="father" placeholder="Father's full name"></div>
+            <div class="field"><label for="dob">Date of birth</label><input id="dob" placeholder="DD/MM/YYYY"></div>
+            <div class="field"><label for="course">Class / course</label><input id="course" value="BCA"></div>
+            <div class="field"><label for="mobile">Student mobile</label><input id="mobile" placeholder="Student contact number" inputmode="tel"></div>
+            <div class="field"><label for="guardian">Guardian contact</label><input id="guardian" placeholder="Guardian contact number" inputmode="tel"></div>
+            <div class="field full"><label for="address">Student address</label><textarea id="address" rows="2" placeholder="Village / City, District"></textarea></div>
+            <div class="field full"><label for="photoInput">Student photograph</label><input id="photoInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></div>
+          </div>
+        </fieldset>
+        <fieldset class="field-group">
+          <legend>Academic record</legend>
+          <div class="fields">
+            <div class="field"><label for="session">Card session</label><input id="session" value="2024-2025"></div>
+            <div class="field"><label for="year1">1st year</label><input id="year1" value="2023-2024"></div>
+            <div class="field"><label for="year2">2nd year</label><input id="year2" value="2024-2025"></div>
+            <div class="field"><label for="year3">3rd year</label><input id="year3" value="2025-2026"></div>
+            <div class="field full"><label for="rules">Back-side instructions, one per line</label><textarea id="rules" rows="4">This ID Card is NOT Transferable.
+Student must carry this card at all times and present it on demand.
+In case of loss, inform the college immediately in writing.</textarea></div>
+          </div>
+        </fieldset>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        <div class="actions">
+          <button class="button button-primary" id="printBtn" type="button"><span aria-hidden="true">↗</span> Print / Save PDF</button>
+          <button class="button button-secondary" id="resetBtn" type="reset">Reset form</button>
+        </div>
+        <p class="print-note">Print at actual size with background graphics enabled. Each side prints on a separate page.</p>
+      </form>
+    </section>
+
+    <section class="panel preview-panel" aria-labelledby="preview-title">
+      <div class="preview-heading">
+        <div><p class="eyebrow">LIVE OUTPUT</p><h2 id="preview-title">Card preview</h2></div>
+        <span class="preview-tag">FRONT + BACK</span>
+      </div>
+      <div class="cards">
+        <article class="card-wrap">
+          <h3 class="side-label"><span>01</span> Front side</h3>
+          <div class="id-card front-card" id="front" aria-label="Front of student ID card">
+            <div class="card-wave" aria-hidden="true"><span></span></div>
+            <div class="front-layout">
+              <header class="front-header">
+                <div class="college-brand">
+                  <div class="logo-frame"><img id="frontLogo" src="assets/kkcLogo.webp" alt="KKC Group of Education logo"><span class="logo-fallback" hidden>KKC</span></div>
+                </div>
+                <div class="college-heading"><h4 id="vCollege">KKC PG COLLEGE</h4><p id="vAffiliation">Affiliated to MGS University Bikaner</p></div>
+              </header>
+              <div class="front-main">
+                <div class="student-block">
+                  <div class="photo-frame"><img id="vPhoto" alt="Student photograph" hidden><span class="photo-fallback">STUDENT<br>PHOTOGRAPH</span></div>
+                  <p class="student-name" id="vName">Student Name</p>
+                </div>
+                <dl class="student-details">
+                  <div class="detail-row"><dt>Father's Name</dt><dd id="vFather">--</dd></div>
+                  <div class="detail-row"><dt>D.O.B.</dt><dd id="vDob">--</dd></div>
+                  <div class="detail-row"><dt>Class</dt><dd id="vCourse">BCA</dd></div>
+                  <div class="detail-row"><dt>Mob. No</dt><dd id="vMobile">--</dd></div>
+                  <div class="detail-row"><dt>Address</dt><dd id="vAddress">--</dd></div>
+                </dl>
+              </div>
+              <div class="front-lower">
+                <div class="identity-block"><div class="barcode" aria-hidden="true"></div><span class="barcode-label" id="vBarcodeLabel">STUDENT ID / BARCODE</span></div>
+                <div class="session-label" id="vSession">2024-2025</div>
+                <div class="principal"><span class="signature-rule"></span><span>Principal</span></div>
+              </div>
+            </div>
+            <footer class="front-footer"><span id="vCollegeAddress">Churu Road, Sardarshahar Dist. (Churu)</span></footer>
+          </div>
+        </article>
+        <article class="card-wrap">
+          <h3 class="side-label"><span>02</span> Back side</h3>
+          <div class="id-card back-card" id="back" aria-label="Back of student ID card">
+            <div class="card-wave" aria-hidden="true"><span></span></div>
+            <div class="back-layout">
+              <div class="back-brand">
+                <div class="back-logo"><img id="backLogo" src="assets/kkcLogo.webp" alt="KKC Group of Education logo"><span class="back-logo-fallback" hidden>KKC</span></div>
+              </div>
+              <table class="year-table">
+                <thead><tr><th scope="col">Academic year</th><th scope="col">Session</th><th scope="col">Signature / seal</th></tr></thead>
+                <tbody id="yearRows">
+                  <tr><th scope="row">1st Year</th><td id="vYear1">2023-2024</td><td></td></tr>
+                  <tr><th scope="row">2nd Year</th><td id="vYear2">2024-2025</td><td></td></tr>
+                  <tr><th scope="row">3rd Year</th><td id="vYear3">2025-2026</td><td></td></tr>
+                </tbody>
+              </table>
+              <p class="guardian-line">Guardian Contact No.: <strong id="vGuardian">--</strong></p>
+              <section class="instructions-block" aria-labelledby="instructionsTitle">
+                <h4 id="instructionsTitle">Important Instruction:</h4>
+                <ol class="instructions" id="vRules">
+                  <li>This ID Card is NOT Transferable.</li>
+                  <li>Student must carry this card at all times and present it on demand.</li>
+                  <li>In case of loss, inform the college immediately in writing.</li>
+                </ol>
+              </section>
+            </div>
+            <footer class="back-footer">
+              <p id="vCollegePhones">College contact numbers</p>
+              <p class="back-address" id="vBackAddress">Churu Road, Sardarshahar Dist. (Churu)</p>
+              <p class="website" id="vWebsite">www.examplecollege.com</p>
+            </footer>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
